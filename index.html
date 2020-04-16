@@ -36,7 +36,7 @@
                         <a class="J_menuItem" href="../index.html">
                             <span class="nav-label">返回前台</span>
                         </a>
-                        <a class="J_menuItem" href="../game/index.html">
+                        <a class="J_menuItem" href="javascript:void(0);" onclick="js('fhyx')">
                             <span class="nav-label">返回游戏</span>
                         </a>
                     </li>
@@ -64,6 +64,8 @@
       {
         if(str=='cdsc')
           document.getElementById("J_iframe").src='./html/cdsc.html';
+        if(str=='fhyx')
+          document.getElementById("J_iframe").src='../game/index.html';
       }
     </script>
 </body>
