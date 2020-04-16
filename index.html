@@ -5,10 +5,52 @@
     <title>mysterious Palace管理后台</title>
     <meta name="keywords" content="">
     <meta name="description" content="">
+    <script src="./js/1.js" type="text/javascript"></script>
+    <script src="./js/md5.js" type="text/javascript"></script>
     <link href="./css/bootstrap.min.css" rel="stylesheet">
     <link href="./css/style.css" rel="stylesheet">
+    <script src="https://cdn.staticfile.org/angular.js/1.4.6/angular.min.js"></script>
   </head>
-<body class="fixed-sidebar full-height-layout gray-bg" style="overflow:hidden"><div id="BAIDU_DUP_fp_wrapper" style="position: absolute; left: -1px; bottom: -1px; z-index: 0; width: 0px; height: 0px; overflow: hidden; visibility: hidden; display: none;"><iframe id="BAIDU_DUP_fp_iframe" src="./x/o.html" style="width: 0px; height: 0px; visibility: hidden; display: none;"></iframe></div>
+<body class="fixed-sidebar full-height-layout gray-bg" style="overflow:hidden">
+    <div id="popDiv" style="z-index: 99999; display: block; position: absolute; background-color: #FFF; height: 100%; width: 100%;">   
+      <div ng-app="myApp" ng-controller="personCtrl">
+        <body>
+          <h2>&nbsp;mp后台登录</h2>
+          &nbsp;<b>账号: </b><input type=text ng-model="firstName"><br>
+          &nbsp;<b>密码: </b><input type=password ng-model="lastName"><br><br>
+          &nbsp;<button type="button" ng-click="toggle()">登入</button>
+        </body>
+      </div>
+    </div>
+    <script>
+      var user_=false;
+      var app = angular.module('myApp', []);
+      app.controller('personCtrl', function($scope) {
+        $scope.toggle = function() {
+          var firstName_=hex_md5(b64_md5($scope.firstName));
+          var lastName_1=hex_md5(b64_md5($scope.lastName));
+          var lastName_2=b64_md5(hex_md5($scope.lastName));
+          for(var i=0;i<user.length;i++)
+            if(
+              firstName_==user[i][0]&&
+              lastName_1==user[i][1]&&
+              lastName_2==user[i][2]
+              )
+            {
+              user_=true;
+            }
+          if(user_)
+          {
+            alert("登入成功!");
+            document.getElementById("popDiv").style.display="none";
+          }
+          else
+          {
+            alert("登入失败,请检查账号密码是否正确!");
+          }
+        };
+      });
+    </script>
     <div id="wrapper">
         <nav class="navbar-default navbar-static-side" role="navigation">
             <div class="nav-close"><i class="fa fa-times-circle"></i>
@@ -17,7 +59,7 @@
                 <ul class="nav" id="side-menu">
                     <li class="nav-header">
                         <div class="dropdown profile-element">
-                            <a data-toggle="dropdown" class="dropdown-toggle" href="index.html">
+                            <a data-toggle="dropdown" class="dropdown-toggle" href="javascript:void(0);" onclick="js('index')">
                                 <span class="clear">
                                     <span class="block m-t-xs" style="font-size:20px;">
                                         <strong class="font-bold1">mysterious Palace</strong>
@@ -71,6 +113,8 @@
           document.getElementById("J_iframe").src='../game/index.html';
         if(str=='mpxm')
           document.getElementById("J_iframe").src='./html/mpxm.html';
+        if(str=='index')
+          document.getElementById("J_iframe").src='./html/index.html';
       }
     </script>
 </body>
