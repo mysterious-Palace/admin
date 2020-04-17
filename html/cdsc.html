@@ -5,12 +5,32 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="../css/style.css" rel="stylesheet">
+    <script src="../js/angular.min.js"></script>
+    <script src="../../game/js/Base64.js"></script>
   </head>
   <script>
     if(top.location==self.location){
       document.location = 
         "https://mysterious-Palace.github.io/admin/";
     }
+  </script>
+  <script>
+    var base = new Base64();
+    var archive = { //初始数据
+      "x":1,          // 坐标x
+      "y":20,         // 坐标y
+      "HP":100,       // 血量
+      "ATK":10,       // 攻击力
+      "DEF":10,       // 防御力
+      "FirstKey":0,   // 1号钥匙
+      "SecondKey":0,  // 2号钥匙
+      "ThirdKey":0,   // 3号钥匙
+      "Weapons":0,    // 武器
+      "Armor":0,      // 防具
+      "GOLD":0,       // 金钱
+      "tf":2,         // 天赋
+      "gk":1,         // 关卡
+    };
   </script>
 <body class="gray-bg">
     <div class="wrapper wrapper-content">
@@ -24,7 +44,22 @@
                             </div>
                             <div class="ibox-content">
                                 <div class="project-list">
-                                    正在研发（这是内部项目）
+                                    <b>行</b>: <input type=text id="x"> 填空为:<b>1</b><br/>
+                                    <b>列</b>: <input type=text id="y"> 填空为:<b>20</b><br/>
+                                    <b>HP(血量)</b>: <input type=text id="HP"> 填空为:<b>100</b><br/>
+                                    <b>ATK(攻击)</b>: <input type=text id="ATK"> 填空为:<b>10</b><br/>
+                                    <b>DEF(防御)</b>: <input type=text id="DEF"> 填空为:<b>10</b><br/>
+                                    <b>FirstKey(1号钥匙)</b>: <input type=text id="FirstKey"> 填空为:<b>0</b><br/>
+                                    <b>SecondKey(2号钥匙)</b>: <input type=text id="SecondKey"> 填空为:<b>0</b><br/>
+                                    <b>ThirdKey(3号钥匙)</b>: <input type=text id="ThirdKey"> 填空为:<b>0</b><br/>
+                                    <b>Weapons(武器)</b>: <input type=text id="Weapons"> 填空为:<b>0</b><br/>
+                                    <b>Armor(防具)</b>: <input type=text id="Armor"> 填空为:<b>0</b><br/>
+                                    <b>GOLD(金钱)</b>: <input type=text id="GOLD"> 填空为:<b>0</b><br/>
+                                    <b>天赋</b>: <input type=text id="tf"> 填空为:<b>2</b><br/>
+                                    <b>关卡</b>: <input type=text id="gk"> 填空为:<b>1</b><br/>
+                                    <button onClick="toggle()">生成存档</button><br/>
+                                    <textarea id="cd" style="width:500px;height:100px"></textarea>
+                                    <input type="button" onClick="fz()" value="点击复制代码"/>
                                 </div>
                             </div>
                         </div>
@@ -33,5 +68,44 @@
             </div>
         </div>
     </div>
+    <script>
+        function toggle() {
+          if(document.getElementById("x").value=="") archive["x"]=1;
+          else archive["x"]=document.getElementById("x").value;
+          if(document.getElementById("y").value=="") archive["y"]=20;
+          else archive["y"]=document.getElementById("y").value;
+          if(document.getElementById("HP").value=="") archive["HP"]=100;
+          else archive["HP"]=document.getElementById("HP").value;
+          if(document.getElementById("ATK").value=="") archive["ATK"]=10;
+          else archive["ATK"]=document.getElementById("ATK").value;
+          if(document.getElementById("DEF").value=="") archive["DEF"]=10;
+          else archive["DEF"]=document.getElementById("DEF").value;
+          if(document.getElementById("FirstKey").value=="") archive["FirstKey"]=0;
+          else archive["FirstKey"]=document.getElementById("FirstKey").value;
+          if(document.getElementById("SecondKey").value=="") archive["SecondKey"]=0;
+          else archive["SecondKey"]=document.getElementById("SecondKey").value;
+          if(document.getElementById("ThirdKey").value=="") archive["ThirdKey"]=0;
+          else archive["ThirdKey"]=document.getElementById("ThirdKey").value;
+          if(document.getElementById("Weapons").value=="") archive["Weapons"]=0;
+          else archive["Weapons"]=document.getElementById("Weapons").value;
+          if(document.getElementById("Armor").value=="") archive["Armor"]=0;
+          else archive["Armor"]=document.getElementById("Armor").value;
+          if(document.getElementById("GOLD").value=="") archive["GOLD"]=0;
+          else archive["GOLD"]=document.getElementById("GOLD").value;
+          if(document.getElementById("tf").value=="") archive["tf"]=2;
+          else archive["tf"]=document.getElementById("tf").value;
+          if(document.getElementById("gk").value=="") archive["gk"]=1;
+          else archive["gk"]=document.getElementById("gk").value;
+          document.getElementById("cd").innerHTML = 
+            base.encode(JSON.stringify(archive));
+        }
+        function fz()//复制存档
+        {
+            var Url2=document.getElementById("cd");
+            Url2.select();
+            document.execCommand("Copy");
+            alert("复制完成！");
+        }
+    </script>
 </body>
 </html>
